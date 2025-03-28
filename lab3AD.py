@@ -187,7 +187,13 @@ def main():
         tab1, tab2, tab3 = st.tabs(["📊 Таблиця даних", "📈 Часовий ряд", "🌐 Порівняння регіонів"])
         
         with tab1:
+            st.subheader("Таблиця даних")
+
+            sort_column = st.selectbox("Сортувати за:", filtered_df.columns, index=0)
+            sort_order = st.radio("Порядок сортування:", ["Зростання", "Спадання"], horizontal=True)
+            filtered_df = filtered_df.sort_values(by=sort_column, ascending=(sort_order == "Зростання"))
             st.dataframe(filtered_df, use_container_width=True)
+
         
         with tab2:
             if not filtered_df.empty:
